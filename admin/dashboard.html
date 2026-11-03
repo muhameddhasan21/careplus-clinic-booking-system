@@ -1,0 +1,326 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePlus | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>CarePlus</h2>
+                <p>Admin Panel</p>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="#overview" class="nav-link active">
+                    Dashboard
+                </a>
+
+                <a href="#appointments" class="nav-link">
+                    Appointments
+                </a>
+
+                <a href="#working-hours" class="nav-link">
+                    Working Hours
+                </a>
+
+            </nav>
+
+            <button id="logout-btn" class="logout-btn">
+                Logout
+            </button>
+
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Dashboard Header -->
+            <header class="dashboard-header" id="overview">
+
+                <button id="menu-toggle" class="menu-toggle">
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back, Admin!</p>
+                </div>
+
+            </header>
+
+
+            <section class="dashboard-content">
+
+                <!-- Overview -->
+                <h2>Overview</h2>
+
+                <div class="stats-container">
+
+                    <div class="stat-card total-card">
+                        <h3>Total Appointments</h3>
+                        <p id="total-appointments">0</p>
+                    </div>
+
+                    <div class="stat-card pending-card">
+                        <h3>Pending</h3>
+                        <p id="pending-appointments">0</p>
+                    </div>
+
+                    <div class="stat-card confirmed-card">
+                        <h3>Confirmed</h3>
+                        <p id="confirmed-appointments">0</p>
+                    </div>
+
+                    <div class="stat-card cancelled-card">
+                        <h3>Cancelled</h3>
+                        <p id="cancelled-appointments">0</p>
+                    </div>
+
+                    <div class="stat-card rejected-card">
+                        <h3>Rejected</h3>
+                        <p id="rejected-appointments">0</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Appointments Section -->
+                <section class="appointments-section" id="appointments">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Recent Appointments</h2>
+                            <p>Manage your latest patient bookings</p>
+                        </div>
+
+                        <a href="#appointments" class="view-all-btn">
+                            View All
+                        </a>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Service</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="appointments-table-body">
+
+                                <tr>
+                                    <td colspan="6">No appointments found.</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Working Hours Section -->
+                <section class="working-hours-section" id="working-hours">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Working Hours</h2>
+                            <p>Manage your clinic's weekly schedule</p>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="working-hours-container"
+                        id="working-hours-container"
+                    >
+
+                        <p>Loading working hours...</p>
+
+                    </div>
+
+                    <div class="working-hours-actions">
+
+                        <button
+                            type="button"
+                            id="save-working-hours-btn"
+                            class="save-working-hours-btn"
+                        >
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                    <p id="working-hours-message"></p>
+
+                </section>
+
+            </section>
+
+        </main>
+
+
+        <!-- Confirmation Modal -->
+        <div class="modal-overlay" id="confirmation-modal">
+
+            <div class="modal">
+
+                <div class="modal-icon" id="modal-icon">
+                    !
+                </div>
+
+                <h2 id="modal-title">Confirm Action</h2>
+
+                <p id="modal-message">
+                    Are you sure you want to continue?
+                </p>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="modal-cancel-btn"
+                        id="modal-cancel-btn"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="button"
+                        class="modal-confirm-btn"
+                        id="modal-confirm-btn"
+                    >
+                        Confirm
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Admin Cancellation Modal -->
+        <div class="modal-overlay" id="admin-cancel-modal">
+
+            <div class="modal">
+
+                <h2>Cancel Appointment</h2>
+
+                <p id="admin-cancel-details">
+                    You are about to cancel this appointment.
+                </p>
+
+                <h3>Choose Cancellation Message</h3>
+
+                <!-- Standard Message -->
+                <label class="cancellation-option">
+
+                    <input
+                        type="radio"
+                        name="cancellation-message-type"
+                        value="standard"
+                        checked
+                    >
+
+                    <span>Use Standard Message</span>
+
+                </label>
+
+                <div class="standard-message-preview">
+
+                    <p>
+                        We sincerely apologize, but due to an unexpected
+                        change in our clinic schedule, we are unable to
+                        proceed with your appointment.
+
+                        We appreciate your understanding and hope to
+                        welcome you to CarePlus again soon.
+                    </p>
+
+                </div>
+
+                <!-- Custom Message -->
+                <label class="cancellation-option">
+
+                    <input
+                        type="radio"
+                        name="cancellation-message-type"
+                        value="custom"
+                    >
+
+                    <span>Write a Custom Message</span>
+
+                </label>
+
+                <textarea
+                    id="admin-cancellation-message"
+                    placeholder="Write your message to the patient..."
+                    rows="4"
+                    disabled
+                ></textarea>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="modal-cancel-btn"
+                        id="admin-cancel-close-btn"
+                    >
+                        Go Back
+                    </button>
+
+                    <button
+                        type="button"
+                        class="modal-confirm-btn"
+                        id="admin-cancel-submit-btn"
+                    >
+                        Confirm Cancellation
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Dashboard JavaScript -->
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
+```
